@@ -1,0 +1,22 @@
+name: bekbolatov-zholaman-jenkins
+services:
+  jenkins:
+    build: .
+    image: bekbolatov-zholaman-jenkins
+    container_name: bekbolatov-zholaman-jenkins
+    user: "0:0"
+    ports:
+      - "127.0.0.1:18080:8080"
+    environment:
+      JAVA_OPTS: -Djenkins.install.runSetupWizard=false
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    secrets:
+      - jenkins_admin_password
+    restart: unless-stopped
+secrets:
+  jenkins_admin_password:
+    file: ./secrets/admin_password
+volumes:
+  jenkins_home:
