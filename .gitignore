@@ -1,0 +1,7 @@
+*.log
+backup/
+.env
+node_modules/
+.DS_Store
+jenkins/secrets/
+tmp/
