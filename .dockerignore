@@ -1,0 +1,9 @@
+.git
+**/node_modules
+**/*.log
+**/.env
+**/backup
+jenkins
+docs
+output
+Devops_Task_6week.docx

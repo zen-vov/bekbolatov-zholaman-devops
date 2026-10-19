@@ -1,0 +1,14 @@
+name: bekbolatov-zholaman-devops
+services:
+  app:
+    build: .
+    image: bekbolatov-zholaman-devops
+    container_name: bekbolatov-zholaman-container
+    ports:
+      - "127.0.0.1:37614:3000"
+    environment:
+      STUDENT_NAME: ${STUDENT_NAME:-Zholaman}
+      STUDENT_SURNAME: ${STUDENT_SURNAME:-Bekbolatov}
+      STUDENT_GROUP: ${STUDENT_GROUP:-IT2-2314}
+      STUDENT_ID: ${STUDENT_ID:-37614}
+    restart: unless-stopped
