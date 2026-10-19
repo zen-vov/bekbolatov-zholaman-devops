@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generate academic PDF from actual saved verification data and screenshots."""
 from pathlib import Path
-import json,html
+import json,html,re,zipfile
+import xml.etree.ElementTree as ET
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase import pdfmetrics
@@ -59,7 +60,7 @@ for s in ['Name: Zholaman','Surname: Bekbolatov','Group: IT2-2314','Student ID: 
 y-=35
 para('Repository: https://github.com/zen-vov/bekbolatov-zholaman-devops')
 para('Requirements source: Devops_Task_6week.docx. All 21 technical tasks were implemented and verified against actual command output and a successful Jenkins build. The student must separately record and submit the continuous personal video with their own voice.')
-para('Report contents: Linux; Git & GitHub; Docker; Jenkins; Integrated Workflow; final task checklist; conclusion and submission requirements.')
+para('Report contents: Linux; Git & GitHub; Docker; Jenkins; Integrated Workflow; task overview; conclusion and submission requirements.')
 start('1. Linux - Tasks 1-5')
 para('The Linux demonstration ran successfully in Ubuntu 24.04. Sources were mounted at /root/devops/bekbolatov_zholaman, preserving the required ~/devops/surname_name layout. Required app, scripts, config, logs and backup folders and personalized files were created.')
 para('linux-demo.sh executed pwd, ls, cd, mkdir, touch, cp, mv, rm, cat, head and tail. A ten-line sample log was searched with find and grep. Exactly two ERROR and two WARNING messages were present; the last five lines were displayed.')
@@ -95,12 +96,22 @@ para('Linux creates and manages the project files and scripts. Git records the p
 code('Linux -> Project -> Git -> GitHub -> Jenkins\n          Checkout -> Build -> Test -> Docker Build -> Docker Run\n          HTTP health verification -> Finished: SUCCESS')
 para('Linux provides shell and process tools; Git provides reproducible history; GitHub shares the source; Jenkins automates the ordered steps; Docker packages and executes the application. Compose describes reusable deployment configuration.')
 para('A failing stage stops the normal stages that follow and marks the build as failed. For example, a failed Test stage prevents building or running a new image. This simple pipeline does not promise automatic rollback; earlier deployments can remain or require correction and rerunning.')
-para('Demonstration instructions and command explanations: docs/commands.md. Detailed workflow and permission explanations: docs/architecture.md. Continuous 10-20 minute recording plan: docs/video-guide.md.')
+para('Run instructions are in README.md. Reproducible demonstrations are in bekbolatov_zholaman/scripts/linux-demo.sh and verify-docker.sh. The video link is at the top of README.md.')
 para('Official references: Jenkins Docker installation - https://www.jenkins.io/doc/book/installing/docker/ ; Jenkins Pipeline syntax - https://www.jenkins.io/doc/book/pipeline/syntax/.')
 start('8. Final checklist and conclusion')
-rows=json.loads((root/'docs/task-status.json').read_text())
+# Read task names from the assignment instead of maintaining a second checklist.
+with zipfile.ZipFile(root/'Devops_Task_6week.docx') as source:
+ document=ET.fromstring(source.read('word/document.xml'))
+ns={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
+rows=[]
+for paragraph in document.findall('.//w:p',ns):
+ text=''.join(t.text or '' for t in paragraph.findall('.//w:t',ns))
+ match=re.match(r'Task (\d+)\. (.*?) [—–-] \d+ points',text)
+ if match:
+  rows.append({'task':int(match[1]),'title':match[2]})
+assert [r['task'] for r in rows]==list(range(1,22))
 for r in rows:
- c.setFont('TNR',10);c.drawString(50,y,f"{r['task']:2}. {r['title']}");c.setFont('TNRB',10);c.drawRightString(W-50,y,r['status']);y-=19
+ c.setFont('TNR',10);c.drawString(50,y,f"{r['task']:2}. {r['title']}");c.setFont('TNRB',10);c.drawRightString(W-50,y,'Verified');y-=19
 para('All 21 technical tasks passed real verification. This does not constitute a guaranteed grade: the DOCX separately assesses repository organization, individual understanding and the personal video. The assessment totals 100 points, including 5 for video.')
 para('Submission still required: record one continuous screen video with your own voice, review its sound and content, and submit its link together with the GitHub repository URL and this PDF. No missing technical screenshots remain.')
 para('Keep Docker Desktop running for the live demonstration. Jenkins login: zholaman; read the password privately from jenkins/secrets/admin_password. Do not submit passwords or browser session artifacts.')

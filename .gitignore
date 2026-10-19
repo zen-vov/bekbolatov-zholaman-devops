@@ -5,6 +5,4 @@ node_modules/
 .DS_Store
 jenkins/secrets/
 tmp/
-
 .playwright-cli/
-output/playwright/

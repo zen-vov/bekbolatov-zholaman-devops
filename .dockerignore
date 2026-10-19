@@ -6,4 +6,6 @@
 jenkins
 docs
 output
-Devops_Task_6week.docx
+tmp
+*.docx
+.playwright-cli
