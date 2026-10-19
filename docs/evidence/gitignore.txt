@@ -1,0 +1,4 @@
+.gitignore:1:*.log	bekbolatov_zholaman/logs/application.log
+.gitignore:2:backup/	bekbolatov_zholaman/backup/example
+.gitignore:3:.env	.env
+.gitignore:6:jenkins/secrets/	jenkins/secrets/admin_password

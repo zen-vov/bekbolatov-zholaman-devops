@@ -1,0 +1,3 @@
+REPOSITORY                   TAG       IMAGE ID       CREATED         SIZE
+bekbolatov-zholaman-devops   1         fc73b816cf7a   3 minutes ago   349MB
+bekbolatov-zholaman-devops   latest    fc73b816cf7a   3 minutes ago   349MB

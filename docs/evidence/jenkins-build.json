@@ -1,0 +1,96 @@
+{
+  "_class": "org.jenkinsci.plugins.workflow.job.WorkflowRun",
+  "actions": [
+    {
+      "_class": "hudson.model.CauseAction",
+      "causes": [
+        {
+          "_class": "hudson.model.Cause$UserIdCause",
+          "shortDescription": "Started by user zholaman",
+          "userId": "zholaman",
+          "userName": "zholaman"
+        }
+      ]
+    },
+    {
+      "_class": "hudson.plugins.git.util.BuildData",
+      "buildsByBranchName": {
+        "refs/remotes/origin/main": {
+          "_class": "hudson.plugins.git.util.Build",
+          "buildNumber": 1,
+          "buildResult": null,
+          "marked": {
+            "SHA1": "efb9022f72dfb62cddeef82a1997a9ff71212734",
+            "branch": [
+              {
+                "SHA1": "efb9022f72dfb62cddeef82a1997a9ff71212734",
+                "name": "refs/remotes/origin/main"
+              }
+            ]
+          },
+          "revision": {
+            "SHA1": "efb9022f72dfb62cddeef82a1997a9ff71212734",
+            "branch": [
+              {
+                "SHA1": "efb9022f72dfb62cddeef82a1997a9ff71212734",
+                "name": "refs/remotes/origin/main"
+              }
+            ]
+          }
+        }
+      },
+      "lastBuiltRevision": {
+        "SHA1": "efb9022f72dfb62cddeef82a1997a9ff71212734",
+        "branch": [
+          {
+            "SHA1": "efb9022f72dfb62cddeef82a1997a9ff71212734",
+            "name": "refs/remotes/origin/main"
+          }
+        ]
+      },
+      "remoteUrls": [
+        "https://github.com/zen-vov/bekbolatov-zholaman-devops.git"
+      ],
+      "scmName": ""
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.libs.LibrariesAction"
+    },
+    {},
+    {},
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.displayurlapi.actions.RunDisplayAction"
+    },
+    {
+      "_class": "org.jenkinsci.plugins.pipeline.modeldefinition.actions.RestartDeclarativePipelineAction"
+    },
+    {},
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.views.FlowGraphAction"
+    },
+    {},
+    {}
+  ],
+  "artifacts": [],
+  "building": false,
+  "description": null,
+  "displayName": "#1",
+  "duration": 13902,
+  "estimatedDuration": 13902,
+  "executor": null,
+  "fullDisplayName": "Bekbolatov_Zholaman_DevOps #1",
+  "id": "1",
+  "keepLog": false,
+  "number": 1,
+  "queueId": 1,
+  "result": "SUCCESS",
+  "timestamp": 1792405089755,
+  "url": "http://127.0.0.1:18080/job/Bekbolatov_Zholaman_DevOps/1/",
+  "changeSets": [],
+  "culprits": [],
+  "inProgress": false,
+  "nextBuild": null,
+  "previousBuild": null
+}

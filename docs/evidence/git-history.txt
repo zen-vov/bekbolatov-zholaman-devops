@@ -1,0 +1,9 @@
+*   efb9022 Merge development: integrate Jenkins delivery workflow
+|\  
+| * c943027 Automate GitHub checkout, testing and Docker deployment with Jenkins
+|/  
+* 077de38 Add non-root Docker image and personalized Compose deployment
+* fde2ce3 Implement dependency-free Node HTTP application and integration tests
+* da629ed Configure personalized student environment defaults
+* 6a9e6de Implement Linux command demonstration and executable system checks
+* f6a388d Initialize personalized laboratory structure and student information

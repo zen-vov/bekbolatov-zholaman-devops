@@ -1,0 +1,108 @@
+++ dirname scripts/linux-demo.sh
++ cd scripts/..
++ pwd
+/root/devops/bekbolatov_zholaman
++ ls -la
+total 16
+drwxr-xr-x 10 root root  320 Oct 19 10:06 .
+drwxr-xr-x  3 root root 4096 Oct 19 10:09 ..
+-rw-r--r--  1 root root   84 Oct 19 10:06 Bekbolatov_Zholaman_info.txt
+drwxr-xr-x  6 root root  192 Oct 19 10:08 app
+drwxr-xr-x  2 root root   64 Oct 19 10:06 backup
+drwxr-xr-x  3 root root   96 Oct 19 10:06 config
+drwxr-xr-x  3 root root   96 Oct 19 10:06 logs
+-rw-------  1 root root   29 Oct 19 10:06 private.txt
+-rw-r--r--  1 root root   40 Oct 19 10:06 public.txt
+drwxr-xr-x  4 root root  128 Oct 19 10:08 scripts
++ mkdir -p backup logs
++ printf '%s\n' 'INFO Application started' 'INFO User logged in' 'WARNING Configuration file missing' 'INFO Configuration loaded' 'ERROR Connection failed' 'INFO Application restarted' 'WARNING Memory usage is high' 'INFO Request received' 'ERROR Request failed' 'INFO Application stopped'
++ touch backup/demo.txt
++ cp Bekbolatov_Zholaman_info.txt backup/info-copy.txt
++ mv backup/demo.txt backup/moved.txt
++ rm backup/moved.txt
++ cat Bekbolatov_Zholaman_info.txt
+Name: Zholaman
+Surname: Bekbolatov
+Group: IT2-2314
+Student ID: 37614
+Course: DevOps
++ head -n 3 logs/application.log
+INFO Application started
+INFO User logged in
+WARNING Configuration file missing
++ tail -n 5 logs/application.log
+INFO Application restarted
+WARNING Memory usage is high
+INFO Request received
+ERROR Request failed
+INFO Application stopped
++ find . -name application.log
+./logs/application.log
++ grep ERROR logs/application.log
+ERROR Connection failed
+ERROR Request failed
++ grep WARNING logs/application.log
+WARNING Configuration file missing
+WARNING Memory usage is high
+++ grep -c ERROR logs/application.log
++ test 2 = 2
++ chmod 600 private.txt
++ chmod 644 public.txt
++ chmod +x scripts/Bekbolatov_Zholaman_system.sh
++ ls -l private.txt public.txt scripts/Bekbolatov_Zholaman_system.sh
+-rw------- 1 root root  29 Oct 19 10:06 private.txt
+-rw-r--r-- 1 root root  40 Oct 19 10:06 public.txt
+-rwxr-xr-x 1 root root 795 Oct 19 10:06 scripts/Bekbolatov_Zholaman_system.sh
++ ./scripts/Bekbolatov_Zholaman_system.sh
+==============================
+Student Information
+==============================
+Name: Zholaman
+Surname: Bekbolatov
+Group: IT2-2314
+Student ID: 37614
+
+==============================
+System Information
+==============================
+Username: root
+Hostname: 996c4366c60d
+Current Date: 2026-10-19T10:09:19+00:00
+Operating System: Linux 996c4366c60d 6.10.14-linuxkit #1 SMP Sat May 17 08:28:57 UTC 2025 aarch64 aarch64 aarch64 GNU/Linux
+Disk Usage:
+Filesystem      Size  Used Avail Use% Mounted on
+overlay         453G  9.4G  420G   3% /
+Memory Usage:
+               total        used        free      shared  buff/cache   available
+Mem:           7.7Gi       637Mi       6.3Gi       632Ki       914Mi       7.0Gi
+Swap:          1.0Gi          0B       1.0Gi
+Student information file exists.
++ mkdir -p backup/missing/scripts
++ cp scripts/Bekbolatov_Zholaman_system.sh backup/missing/scripts/
++ backup/missing/scripts/Bekbolatov_Zholaman_system.sh
++ grep 'Student information file does not exist.'
+Student information file does not exist.
++ ps
+  PID TTY          TIME CMD
+    1 ?        00:00:00 bash
+   46 ?        00:00:00 ps
++ ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0   4032  2848 ?        Ss   10:09   0:00 bash scripts/linux-demo.sh
+root        47  0.0  0.0   7628  3524 ?        R    10:09   0:00 ps aux
++ ps -eo pid,user,pcpu,pmem,args
+  PID USER     %CPU %MEM COMMAND
+    1 root      0.0  0.0 bash scripts/linux-demo.sh
+   48 root      0.0  0.0 ps -eo pid,user,pcpu,pmem,args
++ top -b -n 1
++ head -n 20
+top - 10:09:19 up 3 min,  0 user,  load average: 0.03, 0.09, 0.04
+Tasks:   3 total,   1 running,   2 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+MiB Mem :   7837.6 total,   6482.2 free,    640.0 used,    914.2 buff/cache     
+MiB Swap:   1024.0 total,   1024.0 free,      0.0 used.   7197.6 avail Mem 
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    1 root      20   0    4032   2848   2720 S   0.0   0.0   0:00.00 bash
+   49 root      20   0    8488   4544   2624 R   0.0   0.1   0:00.00 top
+   50 root      20   0    2280   1136   1136 S   0.0   0.0   0:00.00 head

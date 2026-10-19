@@ -1,0 +1,84 @@
++ docker images bekbolatov-zholaman-devops
+REPOSITORY                   TAG       IMAGE ID       CREATED         SIZE
+bekbolatov-zholaman-devops   latest    89d731dd2f9d   3 minutes ago   349MB
++ docker run -d --name bekbolatov-zholaman-container --label devops.student=37614 -p 127.0.0.1:37614:3000 -e STUDENT_NAME=Zholaman -e STUDENT_SURNAME=Bekbolatov -e STUDENT_GROUP=IT2-2314 -e STUDENT_ID=37614 bekbolatov-zholaman-devops
+10c509d9f8c5ec157d70927ef777c5506a2cfe78fc9b76f5d26b10429369b9eb
++ sleep 2
++ docker ps
+CONTAINER ID   IMAGE                         COMMAND                  CREATED          STATUS                            PORTS                       NAMES
+10c509d9f8c5   bekbolatov-zholaman-devops    "docker-entrypoint.s…"   2 seconds ago    Up 2 seconds (health: starting)   127.0.0.1:37614->3000/tcp   bekbolatov-zholaman-container
+1f286564926a   bekbolatov-zholaman-jenkins   "/usr/bin/tini -- /u…"   26 seconds ago   Up 26 seconds                     127.0.0.1:18080->8080/tcp   bekbolatov-zholaman-jenkins
++ docker ps -a
+CONTAINER ID   IMAGE                         COMMAND                  CREATED          STATUS                            PORTS                       NAMES
+10c509d9f8c5   bekbolatov-zholaman-devops    "docker-entrypoint.s…"   2 seconds ago    Up 2 seconds (health: starting)   127.0.0.1:37614->3000/tcp   bekbolatov-zholaman-container
+1f286564926a   bekbolatov-zholaman-jenkins   "/usr/bin/tini -- /u…"   26 seconds ago   Up 26 seconds                     127.0.0.1:18080->8080/tcp   bekbolatov-zholaman-jenkins
++ docker exec bekbolatov-zholaman-container node -e 'fetch('\''http://localhost:3000/health'\'').then(r=>r.json()).then(j=>{require('\''node:assert/strict'\'').deepEqual(j.student,{name:'\''Zholaman'\'',surname:'\''Bekbolatov'\'',group:'\''IT2-2314'\'',id:'\''37614'\'',course:'\''DevOps'\''});console.log(j)})'
+{
+  status: 'ok',
+  student: {
+    name: 'Zholaman',
+    surname: 'Bekbolatov',
+    group: 'IT2-2314',
+    id: '37614',
+    course: 'DevOps'
+  }
+}
++ docker logs bekbolatov-zholaman-container
+================================
+DevOps Student Application
+================================
+Name: Zholaman
+Surname: Bekbolatov
+Group: IT2-2314
+Student ID: 37614
+Course: DevOps
+Application is running successfully!
+
++ docker stop bekbolatov-zholaman-container
+bekbolatov-zholaman-container
++ docker start bekbolatov-zholaman-container
+bekbolatov-zholaman-container
++ sleep 1
++ docker exec bekbolatov-zholaman-container node -e 'fetch('\''http://localhost:3000'\'').then(r=>{if(!r.ok)process.exit(1)})'
++ docker stop bekbolatov-zholaman-container
+bekbolatov-zholaman-container
++ docker rm bekbolatov-zholaman-container
+bekbolatov-zholaman-container
++ docker run --rm -e STUDENT_NAME=Override -e STUDENT_SURNAME=Verified -e STUDENT_GROUP=TEST -e STUDENT_ID=42 bekbolatov-zholaman-devops node -e 'const s=require('\''./server'\'').student();require('\''node:assert/strict'\'').deepEqual(s,{name:'\''Override'\'',surname:'\''Verified'\'',group:'\''TEST'\'',id:'\''42'\'',course:'\''DevOps'\''});console.log(s)'
+{
+  name: 'Override',
+  surname: 'Verified',
+  group: 'TEST',
+  id: '42',
+  course: 'DevOps'
+}
++ docker compose up -d --wait
+ Network bekbolatov-zholaman-devops_default  Creating
+ Network bekbolatov-zholaman-devops_default  Created
+ Container bekbolatov-zholaman-container  Creating
+ Container bekbolatov-zholaman-container  Created
+ Container bekbolatov-zholaman-container  Starting
+ Container bekbolatov-zholaman-container  Started
+ Container bekbolatov-zholaman-container  Waiting
+ Container bekbolatov-zholaman-container  Healthy
++ docker compose ps
+NAME                            IMAGE                        COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+bekbolatov-zholaman-container   bekbolatov-zholaman-devops   "docker-entrypoint.s…"   app       6 seconds ago   Up 5 seconds (healthy)   127.0.0.1:37614->3000/tcp
++ docker exec bekbolatov-zholaman-container node -e 'fetch('\''http://localhost:3000/health'\'').then(r=>r.json()).then(j=>{if(j.student.id!=='\''37614'\'')process.exit(1);console.log(j)})'
+{
+  status: 'ok',
+  student: {
+    name: 'Zholaman',
+    surname: 'Bekbolatov',
+    group: 'IT2-2314',
+    id: '37614',
+    course: 'DevOps'
+  }
+}
++ docker compose down
+ Container bekbolatov-zholaman-container  Stopping
+ Container bekbolatov-zholaman-container  Stopped
+ Container bekbolatov-zholaman-container  Removing
+ Container bekbolatov-zholaman-container  Removed
+ Network bekbolatov-zholaman-devops_default  Removing
+ Network bekbolatov-zholaman-devops_default  Removed
